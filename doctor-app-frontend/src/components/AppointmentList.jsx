@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import API_BASE_URL from '../services/apiBase'
 
 const AppointmentList = ({setRole}) => {
  const [appointments,setAppointments] = useState([])
 
  const getAppoinments = async () =>{
- const res = await fetch("http://localhost:5000/appointments")
+ const res = await fetch(`${API_BASE_URL}/appointments`)
  const data = await res.json()
  setAppointments(data);
  }
@@ -32,3 +33,4 @@ const AppointmentList = ({setRole}) => {
 }
 
 export default AppointmentList
+

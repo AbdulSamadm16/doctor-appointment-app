@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import API_BASE_URL from '../services/apiBase'
 
 const DoctorDashboard = ({setRole}) => {
     const [doctors,setDoctors] = useState([])
@@ -10,13 +11,13 @@ const DoctorDashboard = ({setRole}) => {
    const [appointments, setAppointments] = useState([])
 
     const getDoctor = async ()=>{
-        const res = await fetch("http://localhost:5000/doctors")
+        const res = await fetch(`${API_BASE_URL}/doctors`)
         const data = await res.json()
         setDoctors(data)
         
     }
   const getAppointments = async () => {
-  const res = await fetch("http://localhost:5000/appointments")
+  const res = await fetch(`${API_BASE_URL}/appointments`)
   const data = await res.json()
   setAppointments(data)
 }
@@ -38,7 +39,7 @@ const DoctorDashboard = ({setRole}) => {
     },[selectedDoctor])
 
     const handleUpdate = async ()=>{
-      const res = await fetch( `http://localhost:5000/doctors/${selectedDoctorId}`,{
+      const res = await fetch( `${API_BASE_URL}/doctors/${selectedDoctorId}`,{
         method:"PUT",
         headers:{
           "Content-Type" : "application/json"
@@ -53,7 +54,7 @@ const DoctorDashboard = ({setRole}) => {
     }
 
 const handleDelete = async (id) => {
-  const res = await fetch(`http://localhost:5000/appointments/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/appointments/${id}`, {
     method: "DELETE"
   });
 
@@ -130,3 +131,4 @@ const logout = () => {
 }
 
 export default DoctorDashboard
+

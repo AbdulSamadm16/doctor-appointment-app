@@ -1,5 +1,6 @@
 import React, {useEffect, useState } from 'react'
 import doctorApi from '../services/doctorApi'
+import API_BASE_URL from '../services/apiBase'
 const AppointmentForm = () => {
     const [form,setForm] = useState({
     name:"",
@@ -19,7 +20,7 @@ const handleChange =(e)=>{
 const  handleSubmit = async (e)=>{
   e.preventDefault()
 
-    const res = await fetch("http://localhost:5000/appointments",{
+    const res = await fetch(`${API_BASE_URL}/appointments`,{
         method : "POST",
         headers:{
             "Content-Type" : "application/json"
@@ -71,3 +72,4 @@ return (
 );
 }
 export default AppointmentForm
+
