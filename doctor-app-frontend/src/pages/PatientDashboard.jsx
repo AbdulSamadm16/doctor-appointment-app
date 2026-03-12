@@ -1,20 +1,27 @@
 import React from "react";
 import DoctorList from "../components/DoctorList";
-import AppointmentForm from "../components/AppointmentForm";
 import AppointmentList from "../components/AppointmentList";
 
-const PatientDashboard = ({setRole}) => {
+const PatientDashboard = () => {
 
   
   return (
-    <div className="container mt-4">
-      <h2>Patient Dashboard :</h2>
+    <>
+<div className="container mt-4">
 
-      <DoctorList  />
-      <AppointmentForm />
-      <AppointmentList setRole={setRole} />
+<h2 className="mb-4">Patient Dashboard</h2>
 
-    </div>
+<div className="card p-3 mb-4">
+<h4 className="mb-3">Available Doctors</h4>
+<DoctorList />
+</div>
+
+<div className="card p-3">
+<AppointmentList />
+</div>
+</div>
+
+    </>
   );
 };
 

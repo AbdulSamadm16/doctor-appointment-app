@@ -12,6 +12,10 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "Doctor appointment API is running" });
 });
 
+app.get("/api", (req, res) => {
+  res.status(200).json({ message: "Doctor appointment API is running" });
+});
+
 app.use("/doctors", doctorRoutes);
 app.use("/appointments", appointmentRoutes);
 

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import API_BASE_URL from '../services/apiBase'
+import { useNavigate } from 'react-router-dom'
 
-const DoctorDashboard = ({setRole}) => {
+const DoctorDashboard = () => {
     const [doctors,setDoctors] = useState([])
     const [selectedDoctorId,setSelectedDoctorId] = useState("")
     const [editDoctor, setEditDoctor] = useState({
@@ -65,10 +66,7 @@ const handleDelete = async (id) => {
   getAppointments();
 };
 
-const logout = () => {
-  localStorage.removeItem("role");
-  setRole(null);
-};
+
 
   return (
     <div className="container mt-4">
@@ -89,33 +87,48 @@ const logout = () => {
        </select>
                {
   selectedDoctor&&(
-  <div className="mt-3">
-     <h3 className="mb-2">Doctor Details</h3>
-    <p className="mb-1">Doctor ID: {selectedDoctor.doctorId}</p>
-    <p className="mb-1">Name: {selectedDoctor.name}</p>
-    <p className="mb-3">Specialization: {selectedDoctor.specialization}</p>
+  <div className="card p-3 mt-3">
+    <hr className="my-4" />
+     <h4 className="mb-2">Doctor Details</h4>
+     <hr className="my-4" />  
+    <p className="mb-1"><strong>Doctor ID: </strong>{selectedDoctor.doctorId}</p>
+    <p className="mb-1"><strong>Name: </strong>{selectedDoctor.name}</p>
+    <p className="mb-3"><strong>Specialization: </strong>{selectedDoctor.specialization}</p>
     <input className="form-control mb-2" type="text" value={editDoctor.name} onChange={(e)=>setEditDoctor({...editDoctor ,name:e.target.value})} />
     <input className="form-control mb-2" type="text" value={editDoctor.specialization} onChange={(e)=>setEditDoctor({...editDoctor ,specialization:e.target.value})} />
     <button className="btn btn-outline-success mb-3" onClick={handleUpdate}>
       UPDATE
     </button>
+    <hr className="my-4" />
             <h3 className="mb-2">Appointments for DR.{selectedDoctor?.name}</h3>
+            <hr className="my-4" /> 
 {filteredAppointment.length === 0 ? (
   <p>No Appointments For {selectedDoctor.name}</p>
 ) : (
   filteredAppointment.map((f) => (
-    <div key={f._id} className="d-flex align-items-center gap-2 mb-2">
-      <p className="mb-0">
-        name : {f.name} - Date : {new Date(f.date).toLocaleDateString()} - Time : {f.time}
+       <div key={f._id} className="card p-3 mb-3 shadow-sm">
+
+      <p className="mb-1">
+        <strong>Patient:</strong> {f.name}
       </p>
+
+      <p className="mb-1">
+        <strong>Date:</strong> {new Date(f.date).toLocaleDateString()}
+      </p>
+
+      <p className="mb-2">
+        <strong>Time:</strong> {f.time}
+      </p>
+
       <button
-        type="button"
-        className="btn btn-outline-danger btn-sm"
+        className="btn btn-sm btn-outline-danger"
         onClick={() => handleDelete(f._id)}
       >
-        Cancel
-      </button>
-    </div>
+        Cancel Appointment
+      </button >
+
+</div>
+
   ))
 )}
   </div>
@@ -123,9 +136,6 @@ const logout = () => {
             
           )
         }
- <button className='btn btn-outline-danger' onClick={logout}>
-  Logout
-</button>
     </div>
   )
 }
